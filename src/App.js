@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import PostList from "./components/PostList";
+import PostDetails from "./components/PostDetails";
+import Greeting from "./components/Greeting";
+import styled from "styled-components";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Nav>
+        <Link to="/">Home</Link>
+        <Link to="/about">About</Link>
+      </Nav>
+      <Greeting />
+      <Content>
+        <Routes>
+          <Route path="/" element={<PostList />} />
+          <Route path="/post/:id" element={<PostDetails />} />
+          <Route path="/about" element={<h1>About Page</h1>} />
+        </Routes>
+      </Content>
+    </Router>
   );
-}
+};
 
 export default App;
+
+const Nav = styled.nav`
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 15px;
+  background: #264653;
+  a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+    &:hover {
+      color: #e9c46a;
+    }
+  }
+`;
+
+const Content = styled.div`
+  padding: 20px;
+  text-align: center;
+`;
